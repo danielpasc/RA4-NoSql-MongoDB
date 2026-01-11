@@ -111,6 +111,40 @@ public class NativeMongoUserServiceImpl implements NativeMongoUserService {
         // Equivalente JDBC no directo - prepararías statement cada vez
     }
 
+    /**
+     * EJEMPLO 0: TEST DE CONEXIÓN CON API NATIVA
+     * ===========================================
+     * Demuestra cómo verificar la conexión a MongoDB y obtener información básica.
+     *
+     * COMPARACIÓN CON JDBC:
+     * =====================
+     * MongoDB (API Nativa):
+     * ---------------------
+     * MongoDatabase db = mongoClient.getDatabase("nombre");
+     * db.runCommand(new Document("ping", 1));
+     * db.listCollectionNames().into(new ArrayList<>());
+     * collection.countDocuments();
+     *
+     * JDBC (SQL):
+     * -----------
+     * Connection conn = dataSource.getConnection();
+     * Statement stmt = conn.createStatement();
+     * ResultSet rs = stmt.executeQuery("SELECT 1");  // Test de conexión
+     * DatabaseMetaData meta = conn.getMetaData();
+     * ResultSet tables = meta.getTables(null, null, "%", null);  // Listar tablas
+     * ResultSet countRs = stmt.executeQuery("SELECT COUNT(*) FROM users");
+     *
+     * OPERACIONES DEMOSTRADAS:
+     * 1. Obtener base de datos: mongoClient.getDatabase(name)
+     * 2. Listar colecciones: database.listCollectionNames()
+     * 3. Ejecutar comando: database.runCommand(new Document("ping", 1))
+     * 4. Contar documentos: collection.countDocuments()
+     *
+     * EQUIVALENCIAS SQL:
+     * - listCollectionNames() → SHOW TABLES
+     * - runCommand("ping") → SELECT 1
+     * - countDocuments() → SELECT COUNT(*) FROM users
+     */
     @Override
     public String testConnection() {
         log.debug("Probando conexión a MongoDB...");

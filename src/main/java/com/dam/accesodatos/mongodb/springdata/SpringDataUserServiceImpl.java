@@ -152,6 +152,38 @@ public class SpringDataUserServiceImpl implements SpringDataUserService {
         }
     }
 
+    /**
+     * EJEMPLO 2: BUSCAR USUARIO POR ID CON SPRING DATA
+     * =================================================
+     * Demuestra cómo findById() simplifica las búsquedas con Optional<T>.
+     *
+     * COMPARACIÓN CON JPA:
+     * ====================
+     * Spring Data MongoDB:
+     * --------------------
+     * Optional<User> opt = userRepository.findById(id);
+     * User user = opt.orElseThrow(() -> new UserNotFoundException(id));
+     *
+     * Spring Data JPA:
+     * ----------------
+     * Optional<User> opt = userRepository.findById(id);
+     * User user = opt.orElseThrow(() -> new UserNotFoundException(id));
+     *
+     * VENTAJAS vs API NATIVA:
+     * - No necesitas convertir String a ObjectId manualmente
+     * - No necesitas Filters.eq("_id", objectId)
+     * - No necesitas find().first()
+     * - No necesitas mapear Document a User
+     * - Optional<T> es null-safe (evita NullPointerException)
+     *
+     * SIMILITUDES CON JPA:
+     * - Método idéntico: findById() retorna Optional<T>
+     * - Patrón idéntico: orElse(), orElseThrow()
+     * - Excepción personalizada cuando no existe
+     *
+     * COMPARACIÓN SQL:
+     * SELECT * FROM users WHERE id = ? LIMIT 1
+     */
     @Override
     public User findUserById(String id) {
         log.debug("Buscando usuario por ID: {}", id);
@@ -165,7 +197,7 @@ public class SpringDataUserServiceImpl implements SpringDataUserService {
     }
 
     /**
-     * EJEMPLO 2: ACTUALIZAR USUARIO CON SPRING DATA
+     * EJEMPLO 3: ACTUALIZAR USUARIO CON SPRING DATA
      * =============================================
      * Demuestra el patrón "load-modify-save" de Spring Data.
      *
@@ -233,6 +265,47 @@ public class SpringDataUserServiceImpl implements SpringDataUserService {
         }
     }
 
+    /**
+     * EJEMPLO 4: ELIMINAR USUARIO CON SPRING DATA
+     * ============================================
+     * Demuestra cómo Spring Data simplifica las eliminaciones.
+     *
+     * COMPARACIÓN CON JPA:
+     * ====================
+     * Spring Data MongoDB:
+     * --------------------
+     * if (userRepository.existsById(id)) {
+     *     userRepository.deleteById(id);
+     *     return true;
+     * }
+     * return false;
+     *
+     * Spring Data JPA:
+     * ----------------
+     * if (userRepository.existsById(id)) {
+     *     userRepository.deleteById(id);
+     *     return true;
+     * }
+     * return false;
+     *
+     * VENTAJAS vs API NATIVA:
+     * - No necesitas convertir String a ObjectId
+     * - No necesitas Filters.eq("_id", objectId)
+     * - No necesitas collection.deleteOne()
+     * - No necesitas verificar getDeletedCount()
+     * - existsById() + deleteById() es más legible
+     *
+     * SIMILITUDES CON JPA:
+     * - Métodos idénticos: existsById(), deleteById()
+     * - Lógica idéntica: verificar existencia antes de eliminar
+     * - Retorna boolean indicando éxito
+     *
+     * COMPARACIÓN SQL:
+     * DELETE FROM users WHERE id = ?
+     *
+     * ALTERNATIVA (sin verificación previa):
+     * userRepository.deleteById(id);  // Lanza excepción si no existe
+     */
     @Override
     public boolean deleteUser(String id) {
         log.debug("Eliminando usuario con ID: {}", id);
