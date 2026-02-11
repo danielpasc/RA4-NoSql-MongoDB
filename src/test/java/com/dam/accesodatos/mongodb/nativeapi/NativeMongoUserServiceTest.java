@@ -1,6 +1,6 @@
 package com.dam.accesodatos.mongodb.nativeapi;
 
-import com.dam.accesodatos.config.MongoDbTestContainersConfiguration;
+import com.dam.accesodatos.config.MongoDbExtension;
 import com.dam.accesodatos.exception.DuplicateEmailException;
 import com.dam.accesodatos.exception.InvalidUserIdException;
 import com.dam.accesodatos.exception.UserNotFoundException;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,8 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
-@Import(MongoDbTestContainersConfiguration.class)
+@SpringBootTest(
+    properties = "spring.autoconfigure.exclude=de.flapdoodle.embed.mongo.spring.autoconfigure.EmbeddedMongoAutoConfiguration"
+)
+@ExtendWith(MongoDbExtension.class)
 @DisplayName("NativeMongoUserService Tests")
 class NativeMongoUserServiceTest {
 
