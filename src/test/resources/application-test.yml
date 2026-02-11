@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: proyecto-pedagogico-mongodb-test
+  
+  # Testcontainers configurará automáticamente la conexión MongoDB
+
+logging:
+  level:
+    root: WARN
+    com.dam.accesodatos: INFO
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+    org.testcontainers: INFO

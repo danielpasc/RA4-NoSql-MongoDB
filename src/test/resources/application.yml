@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: proyecto-pedagogico-mongodb-test
+  
+  data:
+    mongodb:
+      database: test_db
+      # Flapdoodle auto-configura host y port
+
+  mongodb:
+    embedded:
+      version: 7.0.2
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 7.0.2
+
+logging:
+  level:
+    root: WARN
+    com.dam.accesodatos: INFO
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+    de.flapdoodle.embed: INFO

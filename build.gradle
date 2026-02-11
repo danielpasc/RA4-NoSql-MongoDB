@@ -53,7 +53,7 @@ dependencies {
     // MongoDB Driver Nativo (para API nativa)
     implementation 'org.mongodb:mongodb-driver-sync:4.11.1'
 
-    // MongoDB Embebido (Flapdoodle) - para desarrollo y tests
+    // MongoDB Embebido (Flapdoodle) - para desarrollo
     implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:4.11.0'
     implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.11.0'
 
@@ -71,8 +71,12 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    
+    // MongoDB en memoria (100% Java) para tests - sin Docker ni binarios nativos
+    testImplementation 'de.bwaldvogel:mongo-java-server:1.45.0'
 }
 
+// Configuración del task de test
 tasks.named('test') {
     useJUnitPlatform()
 

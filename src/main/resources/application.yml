@@ -4,8 +4,8 @@ spring:
   
   data:
     mongodb:
-      host: localhost
-      port: 27017
+      # No especificar host ni port cuando se usa Flapdoodle
+      # Flapdoodle configurará automáticamente el puerto
       database: pedagogico_db
       auto-index-creation: true
 
@@ -13,7 +13,7 @@ de:
   flapdoodle:
     mongodb:
       embedded:
-        version: 7.0.2
+        version: 4.4.18
 
 server:
   port: 8083
